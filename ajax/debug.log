@@ -1,0 +1,70 @@
+[2025-05-30 20:09:36] POST data: Array
+(
+)
+
+[2025-05-30 20:09:36] Raw input: {"course_id":3,"csrf_token":"69f9a6ed6e45a82b7b8f32b02837411802a6bc4e082bc6df820820ce3b2a4954"}
+[2025-05-30 20:09:36] Course ID din JSON: 3
+[2025-05-30 20:09:36] Processing: User ID = 3, Course ID = 3
+[2025-05-30 20:09:36] Found course: Introducere în Investiții
+[2025-05-30 20:09:36] Successfully added to cart
+[2025-05-30 20:09:36] New cart count: 1
+[2025-05-30 20:12:09] POST data: Array
+(
+)
+
+[2025-05-30 20:12:09] Raw input: {"course_id":4,"csrf_token":"69f9a6ed6e45a82b7b8f32b02837411802a6bc4e082bc6df820820ce3b2a4954"}
+[2025-05-30 20:12:09] Course ID din JSON: 4
+[2025-05-30 20:12:09] Processing: User ID = 3, Course ID = 4
+[2025-05-30 20:12:09] Found course: Gestionarea Datoriilor
+[2025-05-30 20:12:09] Successfully added to cart
+[2025-05-30 20:12:09] New cart count: 1
+[2025-05-30 20:12:12] POST data: Array
+(
+)
+
+[2025-05-30 20:12:12] Raw input: {"course_id":5,"csrf_token":"69f9a6ed6e45a82b7b8f32b02837411802a6bc4e082bc6df820820ce3b2a4954"}
+[2025-05-30 20:12:12] Course ID din JSON: 5
+[2025-05-30 20:12:12] Processing: User ID = 3, Course ID = 5
+[2025-05-30 20:12:12] Found course: Planificarea Pensiei
+[2025-05-30 20:12:13] Successfully added to cart
+[2025-05-30 20:12:13] New cart count: 2
+[2025-06-01 13:34:49] POST data: Array
+(
+)
+
+[2025-06-01 13:34:49] Raw input: {"course_id":1,"csrf_token":"af3ff24f667b7a257ea3be5603f9980b101eeb0cdf9199955a2fc5076bcd5fa6"}
+[2025-06-01 13:34:49] Course ID din JSON: 1
+[2025-06-01 13:34:49] Processing: User ID = 5, Course ID = 1
+[2025-06-01 13:34:49] Found course: Fundamente de Bugetare
+[2025-06-01 13:34:49] Successfully added to cart
+[2025-06-01 13:34:49] New cart count: 1
+[2025-06-01 21:34:31] POST data: Array
+(
+)
+
+[2025-06-01 21:34:31] Raw input: {"course_id":1,"csrf_token":"8e01d6ba68a4a905a8ac3b57d13587effffbd43e49d1ba50604f9014847fef4f"}
+[2025-06-01 21:34:31] Course ID din JSON: 1
+[2025-06-01 21:34:31] Processing: User ID = 1, Course ID = 1
+[2025-06-01 21:34:31] Found course: Fundamente de Bugetare
+[2025-06-01 21:34:31] Successfully added to cart
+[2025-06-01 21:34:31] New cart count: 1
+[2025-06-02 18:03:36] POST data: Array
+(
+)
+
+[2025-06-02 18:03:36] Raw input: {"course_id":1,"csrf_token":"eb405a34a4d80dd4035404e9c98777cbbf381b88c12c1b3b63a45c8cac2090e1"}
+[2025-06-02 18:03:36] Course ID din JSON: 1
+[2025-06-02 18:03:36] Processing: User ID = 6, Course ID = 1
+[2025-06-02 18:03:36] Found course: Fundamente de Bugetare
+[2025-06-02 18:03:36] Successfully added to cart
+[2025-06-02 18:03:36] New cart count: 1
+[2025-06-04 22:17:26] POST data: Array
+(
+)
+
+[2025-06-04 22:17:26] Raw input: {"course_id":2,"csrf_token":"868a66811676fedb7060fa555dfeea38b1f64fa41fcf3a6980a541d3dd23397c"}
+[2025-06-04 22:17:26] Course ID din JSON: 2
+[2025-06-04 22:17:26] Processing: User ID = 6, Course ID = 2
+[2025-06-04 22:17:26] Found course: Economisirea Inteligentă
+[2025-06-04 22:17:26] Successfully added to cart
+[2025-06-04 22:17:26] New cart count: 1
