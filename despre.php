@@ -348,14 +348,6 @@ include 'components/header.php';
                             Creăm și menținem platforma tehnică, asigurându-ne că experiența 
                             utilizatorului este perfectă.
                         </p>
-                        <div class="team-social">
-                            <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-primary btn-sm">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 
@@ -370,14 +362,6 @@ include 'components/header.php';
                             Creează cursurile, articolele și materialele educaționale, 
                             asigurându-se că informațiile sunt corecte și accesibile.
                         </p>
-                        <div class="team-social">
-                            <a href="#" class="btn btn-outline-primary btn-sm me-2">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="#" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>

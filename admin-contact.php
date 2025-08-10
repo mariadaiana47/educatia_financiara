@@ -484,10 +484,56 @@ include 'components/header.php';
     }
 }
 
-/* Gradient Backgrounds */
 .bg-gradient-warning {
     background: linear-gradient(135deg, #ffc107 0%, #ff8c00 100%);
 }
+
+/* Fix pentru centrarea modal-ului */
+.modal-dialog {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    max-height: 90vh !important;
+    width: 90% !important;
+    max-width: 800px !important;
+}
+
+.modal-content {
+    max-height: 90vh !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.modal-body {
+    overflow-y: auto !important;
+    max-height: calc(90vh - 120px) !important; /* Scade înălțimea header-ului și footer-ului */
+}
+
+/* Pentru mobile */
+@media (max-width: 768px) {
+    .modal-dialog {
+        width: 95% !important;
+        max-width: none !important;
+        max-height: 95vh !important;
+    }
+    
+    .modal-body {
+        max-height: calc(95vh - 120px) !important;
+    }
+}
+
+/* Fix pentru animația modal-ului */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out !important;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(-50%, -50%) !important;
+}
+
 </style>
 
 <script>

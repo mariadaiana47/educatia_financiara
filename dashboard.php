@@ -765,12 +765,14 @@ include 'components/header.php';
                         <?php
                         $sfaturi = [
                             "Investiția în educație aduce întotdeauna cel mai bun câștig. - Benjamin Franklin",
-                            "Începe de unde ești, folosește ce ai, fă ce poți. - Arthur Ashe",
+                            "Începe de unde ești, folosește ce ai, fă ce poți. - Arthur Ashe", 
                             "Succesul este suma unor mici eforturi repetate zi de zi. - Robert Collier",
                             "O călătorie de o mie de mile începe cu un singur pas. - Lao Tzu",
-                            "Nu număra zilele, fă ca zilele să conteze. - Muhammad Ali"
+                            "Nu număra zilele, fă ca zilele să conteze. - Muhammad Ali",
+                            "Educația este cea mai puternică armă pe care o poți folosi pentru a schimba lumea. - Nelson Mandela",
+                            "Viitorul aparține celor care cred în frumusețea visurilor lor. - Eleanor Roosevelt"
                         ];
-                        echo $sfaturi[date('w')]; // Sfat diferit pentru fiecare zi a săptămânii
+                        echo $sfaturi[date('w')];
                         ?>
                     </p>
                 </div>

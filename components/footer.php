@@ -91,26 +91,6 @@ $footer_base = $is_admin ? '../' : '';
             </div>
         </div>
 
-        <!-- Newsletter Subscription -->
-        <?php if (!isLoggedIn()): ?>
-            <div class="row mt-4 pt-4 border-top border-secondary">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h5>Primește Sfaturi Financiare în Inbox</h5>
-                    <p class="text-muted">Abonează-te la newsletter pentru a primi cele mai noi articole și sfaturi
-                        financiare.</p>
-                    <form class="d-flex justify-content-center mt-3" action="<?= $footer_base ?>newsletter-subscribe.php" method="POST">
-                        <div class="input-group" style="max-width: 400px;">
-                            <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
-                            <input type="email" class="form-control" placeholder="Adresa ta de email" name="email" required>
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-paper-plane me-1"></i>Abonează-te
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        <?php endif; ?>
-
         <!-- Statistics Section -->
         <div class="row mt-4 pt-4 border-top border-secondary">
             <div class="col-12">
@@ -192,15 +172,22 @@ $footer_base = $is_admin ? '../' : '';
         document.getElementById('loadingSpinner').style.display = 'none';
     }
 
-    // Auto-hide alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function () {
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(function (alert) {
+    // Auto-hide alerts after 5 seconds - DOAR pentru mesajele de succes/eroare, NU pentru reguli educaționale
+document.addEventListener('DOMContentLoaded', function () {
+    // Selectează DOAR alert-urile care sunt mesaje (nu reguli permanente)
+    const alerts = document.querySelectorAll('.alert:not(#planificator-buget .alert-info)');
+    alerts.forEach(function (alert) {
+        // Verifică dacă alert-ul este în planificatorul de buget
+        const isInBudgetPlanner = alert.closest('#planificator-buget');
+        
+        // NU ascunde alert-urile din planificatorul de buget
+        if (!isInBudgetPlanner) {
             setTimeout(function () {
                 const bsAlert = new bootstrap.Alert(alert);
                 bsAlert.close();
             }, 5000);
-        });
+        }
+    });
 
         // Back to top button
         const backToTopButton = document.getElementById('backToTop');

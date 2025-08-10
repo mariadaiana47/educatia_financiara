@@ -258,6 +258,9 @@ include 'components/header.php';
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+// Cache buster - forțează încărcarea noului cod
+console.log('Script version: 2024-06-09-v2');
+
 // Variabile globale pentru grafice
 let savingsChartInstance = null;
 let loanChartInstance = null;
@@ -537,6 +540,9 @@ function createSavingsChart(principal, monthlyDeposit, annualRate, years) {
 }
 
 function createLoanChart(loanAmount, monthlyPayment, monthlyRate, totalMonths) {
+    console.log('=== DEBUGGING LOAN CHART ===');
+    console.log('Creating loan chart with corrected labels...');
+    
     const ctx = document.getElementById('loanChart').getContext('2d');
 
     const labels = [];
@@ -555,19 +561,24 @@ function createLoanChart(loanAmount, monthlyPayment, monthlyRate, totalMonths) {
     }
 
     if (loanChartInstance) {
+        console.log('Destroying existing chart...');
         loanChartInstance.destroy();
     }
 
+    // Debug: Verifică exact ce labels folosim
+    const datasetLabels = ['Plată principală', 'Plată dobândă'];
+    console.log('Dataset labels before chart creation:', datasetLabels);
+    
     loanChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Plată principal',
+                label: datasetLabels[0], // Folosim variabila pentru debugging
                 data: principalData,
                 backgroundColor: '#2c5aa0'
             }, {
-                label: 'Plată dobândă',
+                label: datasetLabels[1], // Folosim variabila pentru debugging
                 data: interestData,
                 backgroundColor: '#dc3545'
             }]
@@ -595,6 +606,9 @@ function createLoanChart(loanAmount, monthlyPayment, monthlyRate, totalMonths) {
             }
         }
     });
+    
+    console.log('Chart created successfully with labels:', datasetLabels);
+    console.log('=== END DEBUGGING ===');
 }
 
 function createBudgetChart(needs, wants, savings) {

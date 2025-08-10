@@ -351,6 +351,226 @@ include 'components/header.php';
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
+
+/* ===================================================
+   FIX PENTRU MODALE - ADAUGĂ LA SFÂRȘITUL CSS-ULUI
+   =================================================== */
+
+/* Centrat pe mijlocul ecranului */
+.modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 10500 !important; /* Mai mare decât navbar */
+    width: 100% !important;
+    height: 100% !important;
+    overflow: auto !important;
+    display: none !important; /* Bootstrap va schimba în block când e activat */
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.modal.show {
+    display: flex !important;
+}
+
+.modal-backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 10400 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-dialog {
+    position: relative !important;
+    width: auto !important;
+    margin: 1.75rem auto !important;
+    pointer-events: none !important;
+    z-index: 10600 !important;
+    display: flex !important;
+    align-items: center !important;
+    min-height: calc(100% - 3.5rem) !important;
+}
+
+.modal-content {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    pointer-events: auto !important;
+    background-color: #fff !important;
+    background-clip: padding-box !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    border-radius: 0.3rem !important;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5) !important;
+    outline: 0 !important;
+    z-index: 10700 !important;
+}
+
+.modal-header {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    padding: 1rem 1rem !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    border-top-left-radius: calc(0.3rem - 1px) !important;
+    border-top-right-radius: calc(0.3rem - 1px) !important;
+}
+
+.modal-body {
+    position: relative !important;
+    flex: 1 1 auto !important;
+    padding: 1rem !important;
+}
+
+.modal-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    padding: 0.5rem 1rem !important;
+    border-top: 1px solid #dee2e6 !important;
+    border-bottom-right-radius: calc(0.3rem - 1px) !important;
+    border-bottom-left-radius: calc(0.3rem - 1px) !important;
+}
+
+/* Fix pentru dropdown-uri în modale */
+.modal .dropdown-menu {
+    position: absolute !important;
+    z-index: 10800 !important;
+}
+
+/* Fix pentru overlay issues */
+body.modal-open {
+    overflow: hidden !important;
+    padding-right: 0 !important;
+}
+
+/* Responsive fix pentru modale */
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 500px !important;
+        margin: 1.75rem auto !important;
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 800px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-xl {
+        max-width: 1140px !important;
+    }
+}
+
+/* Fix pentru centrare perfectă pe toate ecranele */
+.modal-dialog-centered {
+    display: flex !important;
+    align-items: center !important;
+    min-height: calc(100% - 1rem) !important;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog-centered {
+        min-height: calc(100% - 3.5rem) !important;
+    }
+}
+
+/* Fix pentru butonul de închidere */
+.btn-close {
+    position: relative !important;
+    z-index: 10800 !important;
+    box-sizing: content-box !important;
+    width: 1em !important;
+    height: 1em !important;
+    padding: 0.25em 0.25em !important;
+    color: #000 !important;
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='m.235 1.237 6.88 6.88 6.88-6.88a.723.723 0 1 1 1.023 1.023L8.138 9.14l6.88 6.88a.723.723 0 1 1-1.023 1.023L7.115 10.163.235 17.043a.723.723 0 1 1-1.023-1.023L6.092 9.14.235 2.26a.723.723 0 0 1 1.023-1.023z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+    border: 0 !important;
+    border-radius: 0.25rem !important;
+    opacity: 0.5 !important;
+}
+
+.btn-close:hover {
+    color: #000 !important;
+    text-decoration: none !important;
+    opacity: 0.75 !important;
+}
+
+/* Asigură că toate elementele interactive din modale funcționează */
+.modal button,
+.modal a,
+.modal input,
+.modal select,
+.modal textarea {
+    pointer-events: auto !important;
+    z-index: 10800 !important;
+}
+
+/* Fix specific pentru modalul de informații */
+#infoModal {
+    z-index: 10500 !important;
+}
+
+#infoModal .modal-dialog {
+    z-index: 10600 !important;
+}
+
+#infoModal .modal-content {
+    z-index: 10700 !important;
+}
+
+/* Override pentru orice regulă care ar putea ascunde modalurile */
+.modal[style*="display: block"] {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Fix pentru animațiile modalurilor */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out !important;
+    transform: translate(0, -50px) !important;
+}
+
+.modal.show .modal-dialog {
+    transform: none !important;
+}
+
+/* Fix pentru scroll în modale */
+.modal-dialog-scrollable {
+    height: calc(100% - 2rem) !important;
+}
+
+.modal-dialog-scrollable .modal-content {
+    max-height: 100% !important;
+    overflow: hidden !important;
+}
+
+.modal-dialog-scrollable .modal-body {
+    overflow-y: auto !important;
+}
+
+/* Fix pentru modale pe ecrane mici */
+@media (max-width: 575.98px) {
+    .modal-dialog {
+        margin: 0.5rem auto !important;
+        width: calc(100% - 1rem) !important;
+        max-width: none !important;
+        min-height: calc(100vh - 1rem) !important;
+        justify-content: center !important;
+    }
+    
+    .modal-dialog-centered {
+        min-height: calc(100vh - 1rem) !important;
+    }
+}
 </style>
 
 <script>

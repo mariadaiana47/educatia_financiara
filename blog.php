@@ -18,12 +18,10 @@ if ($salvate && isLoggedIn()) {
     $params[] = $_SESSION['user_id'];
 }
 
-// Căutare
+// Căutare strict după titlu
 if ($search) {
-    $where_conditions[] = '(a.titlu LIKE ? OR a.continut LIKE ? OR a.continut_scurt LIKE ?)';
+    $where_conditions[] = 'a.titlu LIKE ?';
     $search_term = '%' . $search . '%';
-    $params[] = $search_term;
-    $params[] = $search_term;
     $params[] = $search_term;
 }
 
@@ -340,11 +338,149 @@ include 'components/header.php';
     transition: all 0.3s ease;
 }
 
-/* =============================================================================
-   RESPONSIVE BREAKPOINTS - COMPLET RESPONSIVE
-   ========================================================================== */
+/* Stiluri pentru filtrare îmbunătățită */
+.filter-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.1);
+}
 
-/* Large screens (1200px+) */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-color: white;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn:hover {
+    color: #0d6efd;
+    border-color: #0d6efd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+}
+
+.filter-btn.active {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.filter-btn .badge {
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+    padding: 0.25em 0.5em;
+}
+
+.filter-btn.active .badge {
+    background-color: rgba(255,255,255,0.2) !important;
+    color: white;
+}
+
+.search-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.search-input-group {
+    position: relative;
+}
+
+.search-input {
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    padding: 0.75rem 3rem 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.search-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
+    background-color: white;
+    outline: none;
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background-color: #0d6efd;
+    color: white;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.clear-filters-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.clear-filters-btn:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Results info styling */
+.results-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.results-count {
+    font-weight: 600;
+    color: #495057;
+}
+
+.results-sort {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1200px) {
     .card-img-top {
         height: 180px !important;
@@ -355,7 +491,6 @@ include 'components/header.php';
     }
 }
 
-/* Medium screens (992px - 1199px) - Tablet */
 @media (max-width: 992px) {
     .card .btn-sm,
     .btn-read-more {
@@ -376,7 +511,6 @@ include 'components/header.php';
         margin-top: 2rem;
     }
     
-    /* Meta informații responsive pe tablet */
     .card-meta {
         font-size: 0.8rem;
         gap: 0.25rem;
@@ -385,9 +519,18 @@ include 'components/header.php';
     .card-date {
         font-size: 0.8rem;
     }
+    
+    .filter-buttons {
+        justify-content: center;
+    }
+    
+    .results-info {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
 }
 
-/* Small screens (768px - 991px) - Mobile landscape */
 @media (max-width: 768px) {
     .card .btn-sm,
     .btn-read-more {
@@ -424,7 +567,6 @@ include 'components/header.php';
         line-height: 1.4;
     }
     
-    /* Meta informații mai compacte pe mobile */
     .card-meta {
         font-size: 0.75rem;
         margin-bottom: 0.75rem;
@@ -436,14 +578,12 @@ include 'components/header.php';
         font-size: 0.75rem;
     }
     
-    /* Data responsive pe mobile */
     .card-date {
         font-size: 0.75rem;
         flex: 0 1 auto;
         min-width: fit-content;
     }
     
-    /* Header responsive */
     .col-md-8 h1 {
         font-size: 1.5rem;
     }
@@ -453,7 +593,6 @@ include 'components/header.php';
         margin-top: 1rem;
     }
     
-    /* Text responsive - ascunde textul lung pe mobile */
     .d-none.d-md-inline {
         display: none !important;
     }
@@ -461,9 +600,26 @@ include 'components/header.php';
     .d-inline.d-md-none {
         display: inline !important;
     }
+    
+    .filter-section {
+        padding: 1rem;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-btn {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .search-container {
+        padding: 1rem;
+    }
 }
 
-/* Extra small screens (576px - 767px) - Mobile portrait */
 @media (max-width: 576px) {
     .card .btn-sm,
     .btn-read-more {
@@ -499,7 +655,6 @@ include 'components/header.php';
         line-height: 1.3;
     }
     
-    /* Meta informații foarte compacte pe ecrane mici */
     .card-meta {
         font-size: 0.7rem;
         margin-bottom: 0.5rem;
@@ -512,7 +667,6 @@ include 'components/header.php';
         font-size: 0.7rem;
     }
     
-    /* Layout COMPLET RESPONSIVE pentru acțiuni */
     .card-actions {
         flex-direction: column;
         align-items: stretch;
@@ -542,13 +696,11 @@ include 'components/header.php';
         min-width: 0;
     }
     
-    /* Container padding */
     .container {
         padding-left: 0.75rem;
         padding-right: 0.75rem;
     }
     
-    /* Notificări pe ecrane mici */
     .notification-custom {
         left: 1rem !important;
         right: 1rem !important;
@@ -558,14 +710,17 @@ include 'components/header.php';
         font-size: 0.875rem;
     }
     
-    /* Paginare mai mică */
     .page-link {
         padding: 0.375rem 0.5rem;
         font-size: 0.8125rem;
     }
+    
+    .filter-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
 }
 
-/* Very small screens (max 400px) - Pentru telefoanele foarte mici */
 @media (max-width: 400px) {
     .card-body {
         padding: 0.75rem;
@@ -602,7 +757,6 @@ include 'components/header.php';
     }
 }
 
-/* Very large screens - pentru monitoare mari */
 @media (min-width: 1400px) {
     .card-img-top {
         height: 220px !important;
@@ -617,7 +771,6 @@ include 'components/header.php';
     }
 }
 
-/* Text responsive utilities */
 @media (min-width: 768px) {
     .d-none.d-md-inline {
         display: inline !important;
@@ -628,17 +781,19 @@ include 'components/header.php';
     }
 }
 
-/* Focus states pentru accesibilitate */
 .save-article-btn:focus,
-.btn-read-more:focus {
+.btn-read-more:focus,
+.filter-btn:focus,
+.search-btn:focus {
     outline: 2px solid #0d6efd;
     outline-offset: 2px;
 }
 
-/* Eliminăm dark mode - păstrăm doar fundal alb */
 .card,
 .card-body,
-.notification-custom {
+.notification-custom,
+.filter-section,
+.search-container {
     background-color: white !important;
     color: #212529 !important;
 }
@@ -656,10 +811,11 @@ include 'components/header.php';
     color: #6c757d !important;
 }
 
-/* Print styles */
 @media print {
     .save-article-btn,
-    .card-buttons {
+    .card-buttons,
+    .filter-section,
+    .search-container {
         display: none !important;
     }
     
@@ -677,40 +833,61 @@ include 'components/header.php';
 </style>
 
 <div class="container py-4">
-   <div class="row mb-4">
-    <div class="col-md-8">
-        <h1 class="h2 mb-2">
-            <i class="fas fa-blog me-2"></i>
-            <?= $salvate ? 'Articolele Mele Salvate' : 'Blog - Educație Financiară' ?>
-        </h1>
-        <p class="text-muted mb-0">
-            <?= $salvate ? 'Articolele pe care le-ai salvat pentru mai târziu' : 'Sfaturi practice și strategii financiare pentru dezvoltarea ta personală' ?>
-        </p>
-    </div>
-    <div class="col-md-4 d-none d-md-block"></div>
-</div>
-
-    <!-- Căutare -->
+    <!-- Header Section -->
     <div class="row mb-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <form method="GET" class="row g-3 align-items-end">
+        <div class="col-md-8">
+            <h1 class="h2 mb-2">
+                <i class="fas fa-blog me-2"></i>
+                <?php echo $salvate ? 'Articolele Mele Salvate' : 'Blog - Educație Financiară'; ?>
+            </h1>
+            <p class="text-muted mb-0">
+                <?php echo $salvate ? 'Articolele pe care le-ai salvat pentru mai târziu' : 'Sfaturi practice și strategii financiare pentru dezvoltarea ta personală'; ?>
+            </p>
+        </div>
+        <div class="col-md-4 d-none d-md-block"></div>
+    </div>
+
+    <!-- Secțiunea de Filtrare Îmbunătățită -->
+    <div class="filter-section">
+        <div class="row g-3">
+            <!-- Butoane de Filtrare -->
+            <div class="col-12">
+                <h6 class="mb-3">
+                    <i class="fas fa-filter me-2"></i>Filtrează articolele
+                </h6>
+                <div class="filter-buttons">
+                    <a href="blog.php" class="filter-btn <?php echo (!$salvate && !$search) ? 'active' : ''; ?>">
+                        <i class="fas fa-list me-2"></i>
+                        Toate articolele
+                        <span class="badge bg-secondary"><?php echo $total_articles; ?></span>
+                    </a>
+                    
+                    <?php if ($search || $salvate): ?>
+                        <a href="blog.php" class="clear-filters-btn">
+                            <i class="fas fa-times me-2"></i>
+                            Șterge filtrele
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            
+            <!-- Căutare Îmbunătățită -->
+            <div class="col-12">
+                <div class="search-container">
+                    <form method="GET" class="d-flex align-items-center">
                         <?php if ($salvate): ?>
                             <input type="hidden" name="salvate" value="1">
                         <?php endif; ?>
-                        <div class="col-md-8 col-12">
-                            <label for="search" class="form-label">Caută articole</label>
-                            <input type="text" class="form-control" id="search" name="search" 
-                                   value="<?= sanitizeInput($search) ?>" 
-                                   placeholder="Caută după titlu sau conținut...">
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-search me-2"></i>Caută
-                                </button>
-                            </div>
+                        
+                        <div class="search-input-group flex-grow-1">
+                            <input type="text" 
+                                   class="form-control search-input" 
+                                   name="search" 
+                                   value="<?php echo sanitizeInput($search); ?>" 
+                                   placeholder="Caută după titlul articolului...">
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -718,108 +895,125 @@ include 'components/header.php';
         </div>
     </div>
 
+    <!-- Informații despre rezultate -->
+    <?php if ($search || $salvate || $total_articles > 0): ?>
+        <div class="results-info">
+            <div class="results-count">
+                <i class="fas fa-info-circle me-2"></i>
+                <?php if ($search): ?>
+                    Găsite <strong><?php echo $total_articles; ?></strong> articole pentru "<?php echo sanitizeInput($search); ?>"
+                <?php elseif ($salvate): ?>
+                    Ai <strong><?php echo $total_articles; ?></strong> articole salvate
+                <?php else: ?>
+                    <strong><?php echo $total_articles; ?></strong> articole disponibile
+                <?php endif; ?>
+            </div>
+            <div class="results-sort">
+                Sortate după 
+                <?php echo $salvate ? 'data salvării' : 'data publicării'; ?> 
+                (cel mai recent)
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class="row">
         <!-- Articole principale -->
         <div class="col-lg-8">
             <?php if (!empty($articole)): ?>
-             <!-- 
-=============================================================================
-HTML PENTRU STRUCTURA BUTOANELOR ÎN CARD-URI
-=============================================================================
-Înlocuiește secțiunea de card-uri din blog.php cu aceasta:
--->
-<div class="row">
-    <?php foreach ($articole as $articol): ?>
-        <div class="col-lg-6 col-md-6 col-12 mb-4">
-            <div class="card h-100 shadow-sm">
-                <!-- Imaginea articolului -->
-                <div class="position-relative">
-                    <?php if ($articol['imagine']): ?>
-                        <img src="assets/images/articles/<?= $articol['imagine'] ?>" 
-                             class="card-img-top" 
-                             alt="<?= sanitizeInput($articol['titlu']) ?>"
-                             style="height: 200px; object-fit: cover;">
-                    <?php else: ?>
-                        <div class="card-img-top d-flex align-items-center justify-content-center bg-light" 
-                             style="height: 200px;">
-                            <i class="fas fa-newspaper fa-3x text-muted"></i>
+                <!-- Card-uri pentru articole -->
+                <div class="row">
+                    <?php foreach ($articole as $articol): ?>
+                        <div class="col-lg-6 col-md-6 col-12 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <!-- Imaginea articolului -->
+                                <div class="position-relative">
+                                    <?php if ($articol['imagine']): ?>
+                                        <img src="assets/images/articles/<?php echo $articol['imagine']; ?>" 
+                                             class="card-img-top" 
+                                             alt="<?php echo sanitizeInput($articol['titlu']); ?>"
+                                             style="height: 200px; object-fit: cover;">
+                                    <?php else: ?>
+                                        <div class="card-img-top d-flex align-items-center justify-content-center bg-light" 
+                                             style="height: 200px;">
+                                            <i class="fas fa-newspaper fa-3x text-muted"></i>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Badge pentru articole featured -->
+                                    <?php if (isset($articol['featured']) && $articol['featured']): ?>
+                                        <span class="position-absolute top-0 end-0 badge bg-warning m-2">
+                                            <i class="fas fa-star me-1"></i>Popular
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">
+                                        <a href="articol.php?id=<?php echo $articol['id']; ?>" 
+                                           class="text-decoration-none text-dark">
+                                            <?php echo sanitizeInput($articol['titlu']); ?>
+                                        </a>
+                                    </h5>
+                                    
+                                    <p class="card-text text-muted flex-grow-1">
+                                        <?php 
+                                        $excerpt = $articol['continut_scurt'] ?: strip_tags($articol['continut']);
+                                        echo sanitizeInput(strlen($excerpt) > 120 ? substr($excerpt, 0, 120) . '...' : $excerpt);
+                                        ?>
+                                    </p>
+                                    
+                                    <div class="mt-auto">
+                                        <!-- Meta informații -->
+                                        <div class="card-meta">
+                                            <div>
+                                                <i class="fas fa-user me-1"></i>
+                                                <span class="d-none d-md-inline"><?php echo sanitizeInput($articol['autor_nume']); ?></span>
+                                                <span class="d-inline d-md-none"><?php echo sanitizeInput(explode(' ', $articol['autor_nume'])[0]); ?></span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-eye me-1"></i>
+                                                <span><?php echo number_format($articol['vizualizari']); ?></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Acțiuni card -->
+                                        <div class="card-actions">
+                                            <small class="text-muted card-date">
+                                                <i class="fas fa-calendar me-1"></i>
+                                                <span class="d-none d-md-inline">
+                                                    <?php echo $salvate && isset($articol['data_salvare']) ? 
+                                                        'Salvat: ' . date('d.m.Y', strtotime($articol['data_salvare'])) : 
+                                                        date('d.m.Y', strtotime($articol['data_publicare'])); ?>
+                                                </span>
+                                                <span class="d-inline d-md-none">
+                                                    <?php echo date('d.m', strtotime($salvate && isset($articol['data_salvare']) ? $articol['data_salvare'] : $articol['data_publicare'])); ?>
+                                                </span>
+                                            </small>
+                                            
+                                            <div class="card-buttons">
+                                                <a href="articol.php?id=<?php echo $articol['id']; ?>" 
+                                                   class="btn btn-primary btn-sm btn-read-more">
+                                                    <i class="fas fa-arrow-right me-1"></i>
+                                                    <span class="d-none d-md-inline">Citește mai mult</span>
+                                                    <span class="d-inline d-md-none">Citește</span>
+                                                </a>
+                                                
+                                                <?php if (isLoggedIn()): ?>
+                                                    <button class="btn btn-outline-secondary save-article-btn" 
+                                                            data-article-id="<?php echo $articol['id']; ?>"
+                                                            title="Salvează articolul">
+                                                        <i class="far fa-heart"></i>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    <?php endif; ?>
-                    
-                    <!-- Badge pentru articole featured -->
-                    <?php if (isset($articol['featured']) && $articol['featured']): ?>
-                        <span class="position-absolute top-0 end-0 badge bg-warning m-2">
-                            <i class="fas fa-star me-1"></i>Popular
-                        </span>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
                 
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">
-                        <a href="articol.php?id=<?= $articol['id'] ?>" 
-                           class="text-decoration-none text-dark">
-                            <?= sanitizeInput($articol['titlu']) ?>
-                        </a>
-                    </h5>
-                    
-                    <p class="card-text text-muted flex-grow-1">
-                        <?php 
-                        $excerpt = $articol['continut_scurt'] ?: strip_tags($articol['continut']);
-                        echo sanitizeInput(strlen($excerpt) > 120 ? substr($excerpt, 0, 120) . '...' : $excerpt);
-                        ?>
-                    </p>
-                    
-                    <div class="mt-auto">
-                        <!-- Meta informații -->
-                        <div class="card-meta">
-                            <div>
-                                <i class="fas fa-user me-1"></i>
-                                <span class="d-none d-md-inline"><?= sanitizeInput($articol['autor_nume']) ?></span>
-                                <span class="d-inline d-md-none"><?= sanitizeInput(explode(' ', $articol['autor_nume'])[0]) ?></span>
-                            </div>
-                            <div>
-                                <i class="fas fa-eye me-1"></i>
-                                <span><?= number_format($articol['vizualizari']) ?></span>
-                            </div>
-                        </div>
-                        
-                        <!-- Acțiuni card -->
-                        <div class="card-actions">
-                            <small class="text-muted card-date">
-                                <i class="fas fa-calendar me-1"></i>
-                                <span class="d-none d-md-inline">
-                                    <?= $salvate && isset($articol['data_salvare']) ? 
-                                        'Salvat: ' . date('d.m.Y', strtotime($articol['data_salvare'])) : 
-                                        date('d.m.Y', strtotime($articol['data_publicare'])) ?>
-                                </span>
-                                <span class="d-inline d-md-none">
-                                    <?= date('d.m', strtotime($salvate && isset($articol['data_salvare']) ? $articol['data_salvare'] : $articol['data_publicare'])) ?>
-                                </span>
-                            </small>
-                            
-                            <div class="card-buttons">
-                                <a href="articol.php?id=<?= $articol['id'] ?>" 
-                                   class="btn btn-primary btn-sm btn-read-more">
-                                    <i class="fas fa-arrow-right me-1"></i>
-                                    <span class="d-none d-md-inline">Citește mai mult</span>
-                                    <span class="d-inline d-md-none">Citește</span>
-                                </a>
-                                
-                                <?php if (isLoggedIn()): ?>
-                                    <button class="btn btn-outline-secondary save-article-btn" 
-                                            data-article-id="<?= $articol['id'] ?>"
-                                            title="Salvează articolul">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endforeach; ?>
-</div>
                 <!-- Paginare -->
                 <?php if ($total_pages > 1): ?>
                     <div class="row">
@@ -828,7 +1022,7 @@ HTML PENTRU STRUCTURA BUTOANELOR ÎN CARD-URI
                                 <ul class="pagination justify-content-center flex-wrap">
                                     <?php if ($page > 1): ?>
                                         <li class="page-item">
-                                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">
+                                            <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>">
                                                 <i class="fas fa-chevron-left d-none d-sm-inline"></i>
                                                 <span class="d-none d-sm-inline"> Anterior</span>
                                                 <span class="d-inline d-sm-none">‹</span>
@@ -837,16 +1031,16 @@ HTML PENTRU STRUCTURA BUTOANELOR ÎN CARD-URI
                                     <?php endif; ?>
                                     
                                     <?php for ($i = max(1, $page - 2); $i <= min($total_pages, $page + 2); $i++): ?>
-                                        <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>">
-                                                <?= $i ?>
+                                        <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                                            <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
+                                                <?php echo $i; ?>
                                             </a>
                                         </li>
                                     <?php endfor; ?>
                                     
                                     <?php if ($page < $total_pages): ?>
                                         <li class="page-item">
-                                            <a class="page-link" href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">
+                                            <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 1])); ?>">
                                                 <span class="d-none d-sm-inline">Următorul </span>
                                                 <span class="d-inline d-sm-none">›</span>
                                                 <i class="fas fa-chevron-right d-none d-sm-inline"></i>
@@ -862,9 +1056,9 @@ HTML PENTRU STRUCTURA BUTOANELOR ÎN CARD-URI
             <?php else: ?>
                 <!-- Stare goală -->
                 <div class="text-center py-5">
-                    <i class="fas fa-<?= $salvate ? 'heart' : 'search' ?> fa-3x text-muted mb-3"></i>
+                    <i class="fas fa-<?php echo $salvate ? 'heart' : 'search'; ?> fa-3x text-muted mb-3"></i>
                     <h4>
-                        <?= $salvate ? 'Nu ai articole salvate' : 'Nu s-au găsit articole' ?>
+                        <?php echo $salvate ? 'Nu ai articole salvate' : 'Nu s-au găsit articole'; ?>
                     </h4>
                     <p class="text-muted">
                         <?php if ($salvate): ?>
@@ -889,95 +1083,119 @@ HTML PENTRU STRUCTURA BUTOANELOR ÎN CARD-URI
         </div>
 
         <!-- Sidebar -->
-<div class="col-lg-4">
-
-    <!-- Articole populare -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h6 class="mb-0">
-                <i class="fas fa-fire me-2"></i>Articole Populare
-            </h6>
-        </div>
-        <div class="card-body">
-            <?php if (!empty($articole_populare)): ?>
-                <?php foreach ($articole_populare as $index => $articol): ?>
-                    <div class="d-flex mb-3">
-                        <div class="flex-shrink-0">
-                            <span class="badge bg-primary rounded-pill"><?= $index + 1 ?></span>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <h6 class="mb-1 small">
-                                <a href="articol.php?id=<?= $articol['id'] ?>" class="text-decoration-none">
-                                    <?= sanitizeInput($articol['titlu']) ?>
-                                </a>
-                            </h6>
-                            <small class="text-muted">
-                                <i class="fas fa-eye me-1"></i><?= number_format($articol['vizualizari']) ?> vizualizări
-                            </small>
-                        </div>
-                    </div>
-                    <?php if ($index < count($articole_populare) - 1): ?>
-                        <hr class="my-2">
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-muted small">Nu există articole populare încă.</p>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <!-- Articole recente -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <h6 class="mb-0">
-                <i class="fas fa-clock me-2"></i>Articole Recente
-            </h6>
-        </div>
-        <div class="card-body">
-            <?php if (!empty($articole_recente)): ?>
-                <?php foreach ($articole_recente as $index => $articol): ?>
-                    <div class="mb-3">
-                        <h6 class="mb-1 small">
-                            <a href="articol.php?id=<?= $articol['id'] ?>" class="text-decoration-none">
-                                <?= sanitizeInput($articol['titlu']) ?>
-                            </a>
+        <div class="col-lg-4">
+            <!-- Statistici rapide -->
+            <?php if (isLoggedIn()): ?>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>Statisticile Tale
                         </h6>
-                        <small class="text-muted">
-                            <i class="fas fa-calendar me-1"></i>
-                            <?= date('d.m.Y', strtotime($articol['data_publicare'])) ?>
-                        </small>
                     </div>
-                    <?php if ($index < count($articole_recente) - 1): ?>
-                        <hr class="my-2">
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-muted small">Nu există articole recente.</p>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <i class="fas fa-heart text-danger fa-2x"></i>
+                                </div>
+                                <h5 class="mb-1 saved-articles-count"><?php echo $total_saved; ?></h5>
+                                <small class="text-muted">Articole salvate</small>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-2">
+                                    <i class="fas fa-eye text-primary fa-2x"></i>
+                                </div>
+                                <h5 class="mb-1"><?php echo count($articole_populare); ?></h5>
+                                <small class="text-muted">Populare disponibile</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php endif; ?>
-        </div>
-    </div>
 
-    <!-- Tags populare -->
-    <div class="card">
-        <div class="card-header">
-            <h6 class="mb-0">
-                <i class="fas fa-tags me-2"></i>Subiecte Populare
-            </h6>
-        </div>
-        <div class="card-body">
-            <div class="d-flex flex-wrap gap-2">
-                <a href="blog.php?search=buget" class="btn btn-outline-primary btn-sm">Bugetare</a>
-                <a href="blog.php?search=economii" class="btn btn-outline-success btn-sm">Economii</a>
-                <a href="blog.php?search=investitii" class="btn btn-outline-info btn-sm">Investiții</a>
-                <a href="blog.php?search=credite" class="btn btn-outline-warning btn-sm">Credite</a>
-                <a href="blog.php?search=pensie" class="btn btn-outline-secondary btn-sm">Pensie</a>
-                <a href="blog.php?search=dobanda" class="btn btn-outline-dark btn-sm">Dobândă</a>
+            <!-- Articole populare -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-fire me-2"></i>Articole Populare
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <?php if (!empty($articole_populare)): ?>
+                        <?php foreach ($articole_populare as $index => $articol): ?>
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <span class="badge bg-primary rounded-pill"><?php echo $index + 1; ?></span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-1 small">
+                                        <a href="articol.php?id=<?php echo $articol['id']; ?>" class="text-decoration-none">
+                                            <?php echo sanitizeInput($articol['titlu']); ?>
+                                        </a>
+                                    </h6>
+                                    <small class="text-muted">
+                                        <i class="fas fa-eye me-1"></i><?php echo number_format($articol['vizualizari']); ?> vizualizări
+                                    </small>
+                                </div>
+                            </div>
+                            <?php if ($index < count($articole_populare) - 1): ?>
+                                <hr class="my-2">
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-muted small">Nu există articole populare încă.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Articole recente -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-clock me-2"></i>Articole Recente
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <?php if (!empty($articole_recente)): ?>
+                        <?php foreach ($articole_recente as $index => $articol): ?>
+                            <div class="mb-3">
+                                <h6 class="mb-1 small">
+                                    <a href="articol.php?id=<?php echo $articol['id']; ?>" class="text-decoration-none">
+                                        <?php echo sanitizeInput($articol['titlu']); ?>
+                                    </a>
+                                </h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    <?php echo date('d.m.Y', strtotime($articol['data_publicare'])); ?>
+                                </small>
+                            </div>
+                            <?php if ($index < count($articole_recente) - 1): ?>
+                                <hr class="my-2">
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p class="text-muted small">Nu există articole recente.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Tags populare -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">
+                        <i class="fas fa-tags me-2"></i>Subiecte Populare
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <!-- Butoanele au fost eliminate conform cererii -->
+                        <p class="text-muted mb-0">Folosește căutarea de mai sus pentru a găsi articole pe subiecte specifice.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
-
 
 <script>
 // JavaScript cu debugging pentru a vedea ce se întâmplă
@@ -1170,7 +1388,7 @@ function updateSavedCount(count) {
 
 function removeArticleFromPage(articleId) {
     const button = document.querySelector(`[data-article-id="${articleId}"]`);
-    const articleCard = button.closest('.col-md-6');
+    const articleCard = button.closest('.col-lg-6');
     
     if (articleCard) {
         articleCard.style.transition = 'opacity 0.3s ease';

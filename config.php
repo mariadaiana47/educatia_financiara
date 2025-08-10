@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Verifică dacă sesiunea nu este deja activă înainte de a porni o nouă sesiune
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'educatie_financiara');
@@ -70,6 +73,7 @@ function sanitizeInput($input) {
     }
     return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
 }
+
 function formatPrice($price) {
     return number_format($price, 2, ',', '.') . ' RON';
 }
@@ -189,6 +193,7 @@ function isInCart($user_id, $course_id) {
         return false;
     }
 }
+
 function showMessage($type, $message) {
     $alertClass = '';
     $icon = '';

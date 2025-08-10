@@ -225,9 +225,10 @@ include '../components/header.php';
                         </div>
                         <h5 class="card-title">Progres Utilizatori</h5>
                         <p class="card-text">Monitorizează progresul detaliat al tuturor utilizatorilor platformei</p>
-                        <a href="/admin/admin-progres-user.php" class="btn btn-primary">
-                            <i class="fas fa-users me-2"></i>Vezi Progresul
-                        </a>
+                        <!-- ÎN: -->
+<a href="/educatia-financiara/admin/admin-progres-user.php" class="btn btn-primary">
+    <i class="fas fa-users me-2"></i>Vezi Progresul Tuturor
+</a>
                     </div>
                 </div>
                 
@@ -307,7 +308,7 @@ include '../components/header.php';
                                         <small><?= date('d.m.Y', strtotime($user['data_inregistrare'])) ?></small>
                                     </td>
                                     <td>
-                                        <a href="/admin/admin-progres-user.php?user_id=<?= $user['id'] ?>" 
+                                        <a href="/admin/admin-progres-user.php" 
        class="btn btn-sm btn-outline-info" title="Vezi progresul">
 
                                             <i class="fas fa-chart-line"></i>

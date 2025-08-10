@@ -838,7 +838,7 @@ function createLoanChart(loanAmount, monthlyPayment, monthlyRate, totalMonths) {
         data: {
             labels: labels,
             datasets: [{
-                    label: 'Plată principal',
+                    label: 'Plată principală',
                     data: principalData,
                     backgroundColor: '#2c5aa0'
                 },
