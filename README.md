@@ -39,7 +39,7 @@ It offers **interactive courses**, **quizzes**, **financial calculators**, a **s
 
 1. **Clone the repository:**
    ```bash
-   [git clone https://github.com/mariadaiana47/educatia-financiara.git]
+   git clone https://github.com/mariadaiana47/educatia-financiara.git
    cd educatia-financiara
 
 Configure the database:
