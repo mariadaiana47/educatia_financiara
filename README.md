@@ -35,22 +35,20 @@ It offers **interactive courses**, **quizzes**, **financial calculators**, a **s
 ---
 
 ## 📂 Project Structure
-/
-├── admin/ # Admin dashboard and management tools
-├── ajax/ # AJAX endpoints for dynamic actions
-├── calculators/ # Financial calculators (budget, DCA, retirement, etc.)
-├── components/ # Reusable PHP components (header, footer)
-├── assets/ # Static assets (JS, CSS, images)
-├── index.php # Homepage
-├── cursuri.php # Courses listing
-├── curs.php # Course details
-├── comunitate.php # Community forum
-├── topic.php # Forum topic page
-├── contact.php # Contact form
-├── profil.php # User profile
-├── ... # Other pages (login, register, blog, etc.)
 
----
+📁 admin/ – Admin dashboard and management tools
+📁 ajax/ – AJAX endpoints for dynamic actions
+📁 calculators/ – Financial calculators (budget, DCA, retirement, etc.)
+📁 components/ – Reusable PHP components (header, footer)
+📁 assets/ – Static assets (JS, CSS, images)
+📄 index.php – Homepage
+📄 cursuri.php – Courses listing
+📄 curs.php – Course details
+📄 comunitate.php – Community forum
+📄 topic.php – Forum topic page
+📄 contact.php – Contact form
+📄 profil.php – User profile
+📄 ... – Other pages (login, register, blog, etc.)
 
 ## ⚙️ Setup & Installation
 
